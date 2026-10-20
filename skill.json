@@ -1,0 +1,97 @@
+{
+  "name": "genpark-agentic-commerce-chargeback-representment-evidence-compiler-skill",
+  "version": "1.0.0",
+  "title": "Commerce Chargeback Representment & Evidence Compiler Skill",
+  "description": "Automated merchant dispute response for Visa Compelling Evidence 3.0 / Mastercard dispute condition 4853, compiling digital footprint, AVS/CVV matching, and IP geolocation proof. Built for GenPark (https://www.genpark.ai).",
+  "homepage": "https://www.genpark.ai",
+  "linkedin": "https://www.linkedin.com/company/92955550",
+  "category": "agentic-commerce",
+  "topics": [
+    "chargeback-defense",
+    "compelling-evidence",
+    "merchant-dispute",
+    "fraud-prevention",
+    "agentic-commerce",
+    "model-context-protocol",
+    "genpark"
+  ],
+  "tools": [
+    {
+      "name": "compile_visa_ce30_rebuttal",
+      "description": "Synthesize a formal Visa CE 3.0 dispute rebuttal linking prior undisputed historical transactions with matching device and IP fingerprints.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "disputed_charge_id": {
+            "type": "string"
+          },
+          "disputed_amount_usd": {
+            "type": "number"
+          },
+          "reason_code": {
+            "type": "string",
+            "enum": [
+              "10.4_OTHER_FRAUD",
+              "4853_CARDHOLDER_DISPUTE",
+              "13.1_MERCHANDISE_NOT_RECEIVED"
+            ]
+          },
+          "prior_undisputed_tx_count": {
+            "type": "integer"
+          },
+          "matching_core_elements": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "disputed_charge_id",
+          "disputed_amount_usd",
+          "reason_code",
+          "prior_undisputed_tx_count"
+        ]
+      }
+    },
+    {
+      "name": "audit_avs_cvv_delivery_proof",
+      "description": "Verify Address Verification Service (AVS) match, CVV match, and carrier signature on delivery to calculate merchant win probability.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "avs_response_code": {
+            "type": "string",
+            "enum": [
+              "Y",
+              "A",
+              "Z",
+              "N",
+              "U"
+            ]
+          },
+          "cvv_result_code": {
+            "type": "string",
+            "enum": [
+              "M",
+              "N",
+              "P",
+              "U"
+            ]
+          },
+          "has_carrier_signature": {
+            "type": "boolean"
+          },
+          "customer_download_logged": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "avs_response_code",
+          "cvv_result_code",
+          "has_carrier_signature"
+        ]
+      }
+    }
+  ]
+}
